@@ -8,9 +8,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+	<link rel="stylesheet" href="styles.css">
 	<title>New Match</title>
 </head>
 <body>
+<div class="block">
+	<h2 class="heading">New Match</h2>
+
+	<label for="player1"> Enter First Player Name
+		<input id="player1" name="player1" type="text" required>
+	</label>
+	<label for="player2"> Enter Second Player Name
+		<input id="player2" name="player1" type="text" required>
+	</label>
+	<input type="submit" value="Start" />
+	<%  %>
+</div>
 
 </body>
 </html>

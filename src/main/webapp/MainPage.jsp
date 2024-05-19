@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="test.css">
+	<link rel="stylesheet" href="styles.css">
 	<title>Tennis Scoreboard</title>
 </head>
 <body>

@@ -1,0 +1,25 @@
+body {
+    background-image: url("https://img.olympics.com/images/image/private/t_s_16_9_g_auto/t_s_w1460/f_auto/primary/weyzoz6o394sxfkbest9");
+    font: 40px/1.5 Impact;
+    padding: 20px;
+
+}
+
+h1, h2, p {
+    text-align: center;
+}
+
+a {
+    margin: auto;
+    display: block;
+}
+
+.block {
+    background-color: aqua;
+}
+
+p {
+    padding: 30px;
+    margin: auto;
+    display: block;
+}
