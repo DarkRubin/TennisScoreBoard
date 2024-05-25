@@ -20,6 +20,19 @@
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Match.jsp</servlet-name>
+        <jsp-file>/Match.jsp</jsp-file>
+        <init-param>
+            <param-name>development</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Match.jsp</servlet-name>
+        <url-pattern>/match-score</url-pattern>
+    </servlet-mapping>
+
 
     <servlet>
         <servlet-name>Matches</servlet-name>

@@ -1,6 +1,4 @@
-
-<%@ page import="java.util.UUID" %>
-<%@ page import="MatchScoreController.OngoingMatchesService" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Vadim
   Date: 11.05.2024

@@ -16,6 +16,7 @@ a {
 }
 
 .board {
+    scale: inherit;
     border: 2px solid darkblue;
     background-color: blue;
 }
@@ -47,6 +48,7 @@ td {
 
 
 .button-wrapper{
+    background-image: url(static/rocket2.jpg);
     align-self: center;
     display: inline-block;
     height: 50px;

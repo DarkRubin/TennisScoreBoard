@@ -2,6 +2,7 @@ package model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -10,6 +11,7 @@ import lombok.ToString;
 @Setter
 @Entity
 @ToString
+@NoArgsConstructor
 @Table(name = "matches")
 public class FinishedMatch extends Model {
     @Id
@@ -29,4 +31,9 @@ public class FinishedMatch extends Model {
     @JoinColumn(name = "winner", referencedColumnName = "id")
     private Player winner;
 
+    public FinishedMatch(Player player1, Player player2, Player winner) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.winner = winner;
+    }
 }

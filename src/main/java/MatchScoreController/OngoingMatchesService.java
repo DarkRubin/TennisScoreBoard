@@ -1,21 +1,16 @@
 package MatchScoreController;
 
-import DAO.DAO;
+import model.FinishedMatch;
 import model.MatchScore;
 import model.Player;
-import model.PlayerScore;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 
-public class OngoingMatchesService {
+public class OngoingMatchesService extends Service {
 
-    public Map<UUID, MatchScore> ongoingMatches = new HashMap<>();
 
-    private final DAO dao = new DAO();
-    private final MatchScoreCalculationService service = new MatchScoreCalculationService();
+    private final MatchScoreCalculationService scoreService = new MatchScoreCalculationService();
+    private final FinishedMatchesPersistenceService finishedMatchesService = new FinishedMatchesPersistenceService();
 
     public UUID startNewMatch(String one, String two) {
 
@@ -24,14 +19,25 @@ public class OngoingMatchesService {
 
         MatchScore matchScore = new MatchScore(player1, player2);
 
-        service.newMatch(matchScore);
         ongoingMatches.put(matchScore.getUuid(), matchScore);
         return matchScore.getUuid();
     }
 
+    public void firstPlayerWinPoint(UUID uuid) {
+        scoreService.playerWinPoint(true, uuid);
 
+    }
 
+    public void secondPlayerWinPoint(UUID uuid) {
+        scoreService.playerWinPoint(false, uuid);
+    }
 
+    private void matchEnd(UUID uuid) {
+        if (getMatchScore(uuid).isFinished()) {
+            FinishedMatch finishedMatch = finishedMatchesService.finishMatch(ongoingMatches.get(uuid));
+            finishedMatchesService.saveMatch(finishedMatch);
+        }
+    }
 
 
 

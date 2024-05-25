@@ -2,7 +2,6 @@ package DAO;
 
 import jakarta.persistence.NoResultException;
 import model.FinishedMatch;
-import model.Model;
 import model.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,11 +31,11 @@ public class DAO {
     }
 
 
-    public void save(Model model) {
+    public void saveMatch(FinishedMatch math) {
         try (SessionFactory sessionFactory = buildSessionFactory();
             Session session = sessionFactory.openSession()) {
 
-            session.persist(model);
+            session.persist("FinishedMatch", math);
         }
     }
 
@@ -64,8 +63,7 @@ public class DAO {
 
             if (player == null) {
                 player = new Player(playerName);
-                player.setId(5);
-                save(player);
+                session.persist("Player", player);
             }
 
             session.getTransaction().commit();

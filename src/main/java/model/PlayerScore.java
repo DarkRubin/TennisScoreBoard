@@ -10,5 +10,5 @@ import lombok.ToString;
 public class PlayerScore {
     private int sets;
     private int games;
-    private int points;
+    private Points points;
 }

@@ -2,6 +2,7 @@ package MatchScoreController;
 
 import DAO.DAO;
 import model.FinishedMatch;
+import model.MatchScore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,14 @@ public class FinishedMatchesPersistenceService {
 
     private final DAO dao = new DAO();
 
+    public FinishedMatch finishMatch(MatchScore score) {
+        return new FinishedMatch(score.getPlayer1(),
+                score.getPlayer2(),
+                score.getWinner());
+    }
 
     public void saveMatch(FinishedMatch finishedMatch) {
-        dao.save(finishedMatch);
+        dao.saveMatch(finishedMatch);
     }
 
     public List<FinishedMatch> findFinishedMatches() {
