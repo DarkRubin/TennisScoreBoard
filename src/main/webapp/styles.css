@@ -1,5 +1,6 @@
+
 body {
-    background-image: url("https://img.olympics.com/images/image/private/t_s_16_9_g_auto/t_s_w1460/f_auto/primary/weyzoz6o394sxfkbest9");
+    background-image: url("static/background.jpg");
     font: 40px/1.5 Impact;
     padding: 20px;
 
@@ -10,12 +11,54 @@ h1, h2, p {
 }
 
 a {
+    text-align: center;
     margin: auto;
-    display: block;
+}
+
+.board {
+    border: 2px solid darkblue;
+    background-color: blue;
+}
+
+table {
+    margin: auto;
+}
+
+img {
+
+}
+
+th {
+    font-family: Arial, serif;
+    padding: 10px;
+    margin: 5% 10%;
+}
+
+td {
+    align-self: center;
+    font-family: Bahnschrift, serif;
+    text-align: center;
+
 }
 
 .block {
     background-color: aqua;
+}
+
+
+.button-wrapper{
+    align-self: center;
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    position: relative;
+    border: 3px solid lightslategray;
+    padding: 0 1rem;
+}
+
+button {
+
 }
 
 p {

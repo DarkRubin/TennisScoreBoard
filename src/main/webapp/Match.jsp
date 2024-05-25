@@ -1,16 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Vadim
-  Date: 19.05.2024
-  Time: 15:30
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Match</title>
+	<link rel="stylesheet" href="styles.css">
+	<title>MatchScore</title>
 </head>
 <body>
+<div class="head">
+
+</div>
 
 </body>
 </html>

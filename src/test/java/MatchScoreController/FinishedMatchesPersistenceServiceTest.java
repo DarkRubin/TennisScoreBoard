@@ -16,6 +16,6 @@ class FinishedMatchesPersistenceServiceTest {
 
     @Test
     void readFinishedMatches() {
-        System.out.println(Arrays.toString(finishedMatchesPersistenceService.readFinishedMatches(1)));
+        System.out.println(finishedMatchesPersistenceService.findFinishedMatches().toString());
     }
 }

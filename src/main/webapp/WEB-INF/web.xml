@@ -10,22 +10,38 @@
     <servlet>
         <servlet-name>MainPage</servlet-name>
         <jsp-file>/MainPage.jsp</jsp-file>
+        <init-param>
+            <param-name>development</param-name>
+            <param-value>true</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainPage</servlet-name>
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
+
+
     <servlet>
         <servlet-name>Matches</servlet-name>
-        <jsp-file>/MainPage.jsp</jsp-file>
+        <jsp-file>/Matches.jsp</jsp-file>
+        <init-param>
+            <param-name>development</param-name>
+            <param-value>true</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Matches</servlet-name>
-        <url-pattern>/matches</url-pattern>
+        <url-pattern>/finishedMatches</url-pattern>
     </servlet-mapping>
+
+
     <servlet>
         <servlet-name>NewMatch</servlet-name>
         <jsp-file>/NewMatch.jsp</jsp-file>
+        <init-param>
+            <param-name>development</param-name>
+            <param-value>true</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>NewMatch</servlet-name>

@@ -1,26 +1,44 @@
 package MatchScoreController;
 
 import DAO.DAO;
-import model.Match;
+import model.FinishedMatch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FinishedMatchesPersistenceService {
 
     public static final int PAGE_SIZE = 10;
-    DAO dao = new DAO();
 
-    public void saveMatch(Match match) {
-        dao.save(match);
+    private final DAO dao = new DAO();
+
+
+    public void saveMatch(FinishedMatch finishedMatch) {
+        dao.save(finishedMatch);
     }
 
-    public Match[] readFinishedMatches(int page) {
-        Match[] result = new Match[PAGE_SIZE];
-        List<Match> matches = dao.findAllMatches();
-        int j = 0;
-        for (int i = 10 * page; i < 10 * page + 10; i++) {
-            result[j++] = matches.get(i - 10);
+    public List<FinishedMatch> findFinishedMatches() {
+        return dao.findAllMatches();
+    }
+
+    public int countPages(ArrayList<FinishedMatch> finishedMatches) {
+        int pages;
+        return pages = finishedMatches.size() / 10;
+    }
+
+    public List<FinishedMatch> readPage(List<FinishedMatch> finishedMatches, int page) {
+        int number = (page - 1) * 10;
+        List<FinishedMatch> result = new ArrayList<>(PAGE_SIZE);
+        for (int i = 0, matchesSize = finishedMatches.size(); i < PAGE_SIZE ; i++) {
+            if (number < matchesSize) {
+                result.add(finishedMatches.get(number));
+                number++;
+            } else return result;
         }
         return result;
     }
+
+
+
+
 }

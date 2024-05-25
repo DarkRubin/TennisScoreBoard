@@ -1,4 +1,6 @@
-<%--
+
+<%@ page import="java.util.UUID" %>
+<%@ page import="MatchScoreController.OngoingMatchesService" %><%--
   Created by IntelliJ IDEA.
   User: Vadim
   Date: 11.05.2024
@@ -13,17 +15,22 @@
 </head>
 <body>
 <div class="block">
+
 	<h2 class="heading">New Match</h2>
 
-	<label for="player1"> Enter First Player Name
-		<input id="player1" name="player1" type="text" required>
-	</label>
-	<label for="player2"> Enter Second Player Name
-		<input id="player2" name="player1" type="text" required>
-	</label>
-	<input type="submit" value="Start" />
-	<%  %>
+	<form method="post" action="${pageContext.request.contextPath}/new-match/*">
+		<label for="player1"> Enter First Player Name
+			<input id="player1" name="player1" type="text" required>
+		</label>
+		<label for="player2"> Enter Second Player Name
+			<input id="player2" name="player1" type="text" required>
+		</label>
+			<input type="submit" value="Start" />
+	</form>
+
 </div>
+
+
 
 </body>
 </html>
