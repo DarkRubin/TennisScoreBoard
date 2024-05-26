@@ -31,11 +31,9 @@ public class OngoingMatchesService extends Service {
         scoreService.playerWinPoint(false, uuid);
     }
 
-    private void matchEnd(UUID uuid) {
-        if (getMatchScore(uuid).isFinished()) {
-            FinishedMatch finishedMatch = finishedMatchesService.finishMatch(ongoingMatches.get(uuid));
-            finishedMatchesService.saveMatch(finishedMatch);
-        }
+    protected void matchEnd(UUID uuid) {
+        FinishedMatch finishedMatch = finishedMatchesService.finishMatch(ongoingMatches.get(uuid));
+        finishedMatchesService.saveMatch(finishedMatch);
     }
 
 

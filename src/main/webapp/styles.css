@@ -50,7 +50,6 @@ td {
 .button-wrapper{
     background-image: url(static/rocket2.jpg);
     align-self: center;
-    display: inline-block;
     height: 50px;
     width: 50px;
     line-height: 50px;

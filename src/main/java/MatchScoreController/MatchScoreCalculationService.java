@@ -31,33 +31,32 @@ public class MatchScoreCalculationService extends Service {
         Points loserPoints = currentScore.getPlayerPoints(loser);
 
         switch (winnerPoints) {
-            case ZERO: winnerPoints = Points.FIFTEEN;
-                break;
-            case FIFTEEN: winnerPoints = Points.THIRTY;
-                break;
-            case THIRTY: winnerPoints = Points.FORTY;
-                break;
-            case FORTY:
+            case ZERO -> winnerPoints = Points.FIFTEEN;
+            case FIFTEEN -> winnerPoints = Points.THIRTY;
+            case THIRTY -> {
                 if (loserPoints != Points.FORTY) {
-                    gameWin(winner,loser);
+                    winnerPoints = Points.FORTY;
                 } else {
                     winnerPoints = Points.EXACTLY;
                     loserPoints = Points.EXACTLY;
                 }
-                break;
-            case EXACTLY:
+            }
+            case FORTY, MORE -> {
+                gameWin(winner, loser); return;
+            }
+            case EXACTLY -> {
                 winnerPoints = Points.MORE;
                 loserPoints = Points.LESS;
-                break;
-            case LESS:
+            }
+            case LESS -> {
                 winnerPoints = Points.EXACTLY;
                 loserPoints = Points.EXACTLY;
-                break;
-            case MORE: gameWin(winner, loser);
+            }
         }
-
-        currentScore.setPlayerPoints(winner, winnerPoints);
-        currentScore.setPlayerPoints(loser, loserPoints);
+        if (!currentScore.isFinished()) {
+            currentScore.setPlayerPoints(winner, winnerPoints);
+            currentScore.setPlayerPoints(loser, loserPoints);
+        }
     }
 
 
@@ -69,14 +68,11 @@ public class MatchScoreCalculationService extends Service {
         winnerScore.setGames(winnerScore.getGames() + 1);
         if (winnerScore.getGames() == 6) {
             if (loserScore.getGames() == 6) {
-                tiebreak();
+                tiebreak = true;
+            } else {
+                setWin(winnerScore, winner);
             }
-            setWin(winnerScore, winner);
         }
-    }
-
-    private void tiebreak() {
-        tiebreak = true;
     }
 
 
@@ -84,13 +80,14 @@ public class MatchScoreCalculationService extends Service {
         winnerScore.setSets(winnerScore.getSets() + 1);
         winnerScore.setGames(0);
         if (winnerScore.getSets() == 2) {
-            currentScore.setFinished(isMatchFinished());
             currentScore.setWinner(winner);
+            matchFinished();
         }
     }
 
-    private boolean isMatchFinished() {
-        return currentScore.getFirstPlayerScore().getSets() == 2 && currentScore.getSecondPlayerScore().getSets() == 2;
+    private void matchFinished() {
+        OngoingMatchesService service = new OngoingMatchesService();
+        service.matchEnd(currentScore.getUuid());
     }
 
 }

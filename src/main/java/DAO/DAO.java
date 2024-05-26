@@ -34,8 +34,9 @@ public class DAO {
     public void saveMatch(FinishedMatch math) {
         try (SessionFactory sessionFactory = buildSessionFactory();
             Session session = sessionFactory.openSession()) {
-
-            session.persist("FinishedMatch", math);
+            session.beginTransaction();
+            session.persist("FinishedMatch", session.merge(math));
+            session.getTransaction().commit();
         }
     }
 
