@@ -9,10 +9,10 @@ import java.util.UUID;
 
 public abstract class Service {
 
-    public Map<UUID, MatchScore> ongoingMatches = new HashMap<>();
+    public static Map<UUID, MatchScore> ongoingMatches = new HashMap<>();
     protected final DAO dao = new DAO();
 
-    public MatchScore getMatchScore(UUID uuid) {
+    public static MatchScore getMatchScore(UUID uuid) {
         return ongoingMatches.get(uuid);
     }
 }

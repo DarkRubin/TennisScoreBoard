@@ -1,8 +1,8 @@
-<%@ page import="MatchScoreController.OngoingMatchesService" %>
 <%@ page import="java.util.UUID" %>
 <%@ page import="model.MatchScore" %>
 <%@ page import="model.PlayerScore" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="MatchScoreController.Service" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
 <!DOCTYPE html>
 <html>
 
@@ -22,9 +22,8 @@
 </div>
 
 <%
-  OngoingMatchesService service = new OngoingMatchesService();
   UUID uuid = UUID.fromString(request.getParameter("uuid"));
-  MatchScore matchScore = service.getMatchScore(uuid);
+  MatchScore matchScore = Service.getMatchScore(uuid);
   PlayerScore firstPlayerScore = matchScore.getFirstPlayerScore();
   PlayerScore secondPlayerScore = matchScore.getSecondPlayerScore();
 %>
@@ -42,40 +41,45 @@
 	  </thead>
 	  <tbody>
 		<tr>
-		  <th scope="row">Player1</th>
+		  <th scope="row"><%=matchScore.getPlayer1().getName()%></th>
 		  <td><%=firstPlayerScore.getSets()%>
 		  </td>
 		  <td><%=firstPlayerScore.getGames()%>
 		  </td>
-		  <td><%=firstPlayerScore.getPoints()%>
+		  <td><%=firstPlayerScore.getPointsInString()%>
 		  </td>
 		</tr>
 		<tr>
-		  <th scope="row">Player2</th>
+		  <th scope="row"><%=matchScore.getPlayer2().getName()%></th>
 		  <td><%=secondPlayerScore.getSets()%>
 		  </td>
 		  <td><%=secondPlayerScore.getGames()%>
 		  </td>
-		  <td><%=secondPlayerScore.getPoints()%>
+		  <td><%=secondPlayerScore.getPointsInString()%>
 		  </td>
 		</tr>
 	  </tbody>
 	</table>
-	<form action="<% service.firstPlayerWinPoint(uuid); %>" id="1">
-	  <button class="button-wrapper" form="1">First Player Win Point</button>
-	</form>
+	<section>
+	  <article>
 
-	<form action="<% service.secondPlayerWinPoint(uuid); response.sendRedirect(request.getPathInfo());%>" id="2">
-	  <button class="button-wrapper" form="2"></button>
-	</form>
+		<form method="post" id="1"
+			  action="<%=String.format("/TennisScoreBoard/match-score/calculation?uuid=%s&id=%s", uuid, matchScore.getPlayer1().getId()) %>">
+		  <button class="button-wrapper" form="1" type="submit">First Player Win Point</button>
+		  </form>
+
+		<form method="post" id="2"
+			  action="<%=String.format("/TennisScoreBoard/match-score/calculation?uuid=%s&id=%s", uuid, matchScore.getPlayer2().getId())%>">
+		  <button class="button-wrapper" form="2" type="submit"></button>
+		</form>
+
+	  </article>
+	</section>
+
   </section>
 </div>
 
 <a href="NewMatch.jsp">New Match</a>
-
-<%
-
-%>
 
 </body>
 </html>

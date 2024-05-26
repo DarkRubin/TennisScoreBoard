@@ -10,8 +10,12 @@ import java.util.UUID;
 public class MatchScoreCalculationService extends Service {
 
     private MatchScore currentScore;
+    private boolean tiebreak;
 
     public void playerWinPoint(boolean isFirst, UUID uuid) {
+        if (tiebreak) {
+            return;
+        }
         currentScore = getMatchScore(uuid);
         Player winner;
         Player loser;
@@ -61,6 +65,7 @@ public class MatchScoreCalculationService extends Service {
         PlayerScore winnerScore = currentScore.getThisPlayerScore(winner);
         PlayerScore loserScore = currentScore.getThisPlayerScore(loser);
         winnerScore.setPoints(Points.ZERO);
+        loserScore.setPoints(Points.ZERO);
         winnerScore.setGames(winnerScore.getGames() + 1);
         if (winnerScore.getGames() == 6) {
             if (loserScore.getGames() == 6) {
@@ -71,11 +76,13 @@ public class MatchScoreCalculationService extends Service {
     }
 
     private void tiebreak() {
+        tiebreak = true;
     }
 
 
     private void setWin(PlayerScore winnerScore, Player winner) {
         winnerScore.setSets(winnerScore.getSets() + 1);
+        winnerScore.setGames(0);
         if (winnerScore.getSets() == 2) {
             currentScore.setFinished(isMatchFinished());
             currentScore.setWinner(winner);

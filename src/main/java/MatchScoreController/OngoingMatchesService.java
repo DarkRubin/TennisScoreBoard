@@ -25,7 +25,6 @@ public class OngoingMatchesService extends Service {
 
     public void firstPlayerWinPoint(UUID uuid) {
         scoreService.playerWinPoint(true, uuid);
-
     }
 
     public void secondPlayerWinPoint(UUID uuid) {
