@@ -10,13 +10,11 @@ import java.util.List;
 public class FinishedMatchesPersistenceService {
 
     public static final int PAGE_SIZE = 10;
-
     private final DAO dao = new DAO();
 
+
     public FinishedMatch finishMatch(MatchScore score) {
-        return new FinishedMatch(score.getPlayer1(),
-                score.getPlayer2(),
-                score.getWinner());
+        return new FinishedMatch(score.getPlayer1(), score.getPlayer2(), score.getWinner());
     }
 
     public void saveMatch(FinishedMatch finishedMatch) {

@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Collection;
+
 @Getter
 @Setter
 @Entity
-@ToString
 @NoArgsConstructor
 @Table(name = "players")
 public class Player extends Model {
@@ -23,5 +24,16 @@ public class Player extends Model {
 
     public Player(String name) {
         this.name = name;
+    }
+
+    @OneToMany(mappedBy = "player1")
+    private Collection<FinishedMatch> finishedMatch;
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
