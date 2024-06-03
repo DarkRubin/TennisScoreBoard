@@ -11,6 +11,10 @@ import static model.Points.*;
 
 public class MatchScoreCalculationService extends Service {
 
+    public static final int MIN_GAME_COUNT_FOR_WIN = 6;
+    public static final int MIN_TIEBREAK_POINTS_FOR_WIN = 7;
+    public static final int SETS_COUNT_FOR_WIN = 2;
+
     private MatchScore currentScore;
     private Player winner;
     private Player loser;
@@ -75,12 +79,12 @@ public class MatchScoreCalculationService extends Service {
     }
 
     private void tiebreakPointsAdding() {
-        int winnerTiebreakPoints = winnerScore.getTiebreakPoints();
+        int winnerTiebreakPoints = winnerScore.getTiebreakPoints() + 1;
         int loserTiebreakPoints = loserScore.getTiebreakPoints();
 
-        winnerScore.setTiebreakPoints(winnerTiebreakPoints++);
+        winnerScore.setTiebreakPoints(winnerTiebreakPoints);
 
-        if (winnerTiebreakPoints > loserTiebreakPoints + 1 && winnerTiebreakPoints >= 7) {
+        if (winnerTiebreakPoints > loserTiebreakPoints + 1 && winnerTiebreakPoints >= MIN_TIEBREAK_POINTS_FOR_WIN) {
             gameWin();
         }
     }
@@ -88,23 +92,27 @@ public class MatchScoreCalculationService extends Service {
     private void gameWin() {
         winnerScore.setPoints(ZERO);
         loserScore.setPoints(ZERO);
-        int winnerGames = winnerScore.getGames();
+        winnerScore.setTiebreakPoints(0);
+        loserScore.setTiebreakPoints(0);
+        int winnerGames = winnerScore.getGames() + 1;
         int loserGames = loserScore.getGames();
-        winnerScore.setGames(winnerGames + 1);
-        if (winnerGames == 6 && loserGames == 6) {
+        winnerScore.setGames(winnerGames);
+        if (winnerGames == loserGames && winnerGames >= MIN_GAME_COUNT_FOR_WIN) {
             currentScore.setTiebreak(true);
         }
-        if (winnerGames >= 6 && winnerGames > loserGames + 1) {
+        if (winnerGames >= MIN_GAME_COUNT_FOR_WIN && winnerGames > loserGames + 1) {
             setWin();
         }
     }
 
     private void setWin() {
         winnerScore.setSets(winnerScore.getSets() + 1);
+        currentScore.setTiebreak(false);
         winnerScore.setGames(0);
-        if (winnerScore.getSets() == 2) {
+        loserScore.setGames(0);
+        if (winnerScore.getSets() == SETS_COUNT_FOR_WIN) {
+            currentScore.setFinished(true);
             currentScore.setWinner(winner);
-            currentScore.setTiebreak(false);
             matchFinished();
         }
     }
@@ -113,5 +121,4 @@ public class MatchScoreCalculationService extends Service {
         OngoingMatchesService service = new OngoingMatchesService();
         service.matchEnd(currentScore.getUuid());
     }
-
 }
