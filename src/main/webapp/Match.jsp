@@ -1,9 +1,10 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@ page import="java.util.UUID" %>
 <%@ page import="java.util.UUID" %>
 <%@ page import="model.MatchScore" %>
 <%@ page import="model.PlayerScore" %>
 <%@ page import="MatchScoreController.Service" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -17,6 +18,7 @@
 	<article>
 	  <a href="${pageContext.request.contextPath}/main">Tennis Scoreboard</a>
 	  <a href="${pageContext.request.contextPath}/finishedMatches">Matches</a>
+	  <a href="${pageContext.request.contextPath}/new-match">New Match</a>
 	</article>
   </section>
 </div>
@@ -41,21 +43,31 @@
 	  </thead>
 	  <tbody>
 		<tr>
-		  <th scope="row"><%=matchScore.getPlayer1().getName()%></th>
-		  <td><%=firstPlayerScore.getSets()%>
+		  <th scope="row">
+			<%=matchScore.getPlayer1().getName()%>
+		  </th>
+		  <td>
+			<%=firstPlayerScore.getSets()%>
 		  </td>
-		  <td><%=firstPlayerScore.getGames()%>
+		  <td>
+			<%=firstPlayerScore.getGames()%>
 		  </td>
-		  <td><%=firstPlayerScore.getPointsInString()%>
+		  <td>
+			<%=firstPlayerScore.getPointsInString()%>
 		  </td>
 		</tr>
 		<tr>
-		  <th scope="row"><%=matchScore.getPlayer2().getName()%></th>
-		  <td><%=secondPlayerScore.getSets()%>
+		  <th scope="row">
+			<%=matchScore.getPlayer2().getName()%>
+		  </th>
+		  <td>
+			<%=secondPlayerScore.getSets()%>
 		  </td>
-		  <td><%=secondPlayerScore.getGames()%>
+		  <td>
+			<%=secondPlayerScore.getGames()%>
 		  </td>
-		  <td><%=secondPlayerScore.getPointsInString()%>
+		  <td>
+			<%=secondPlayerScore.getPointsInString()%>
 		  </td>
 		</tr>
 	  </tbody>
@@ -64,22 +76,31 @@
 	  <article>
 
 		<form method="post" id="1"
-			  action="<%=String.format("/TennisScoreBoard/match-score/calculation?uuid=%s&id=%s", uuid, matchScore.getPlayer1().getId()) %>">
+			  action="<%=String.format("/TennisScoreBoard/match-score/calculation?uuid=%s&id=%s",
+			   uuid, matchScore.getPlayer1().getId()) %>">
 		  <button class="button-wrapper" form="1" type="submit">First Player Win Point</button>
-		  </form>
+		</form>
 
 		<form method="post" id="2"
-			  action="<%=String.format("/TennisScoreBoard/match-score/calculation?uuid=%s&id=%s", uuid, matchScore.getPlayer2().getId())%>">
+			  action="<%=String.format("/TennisScoreBoard/match-score/calculation?uuid=%s&id=%s",
+			   uuid, matchScore.getPlayer2().getId())%>">
 		  <button class="button-wrapper" form="2" type="submit"></button>
 		</form>
 
+		<%
+		 if (matchScore.isFinished()) {
+			out.println("<h2>");
+		   	out.println("Match Finished");
+		   	out.println("</h2>");
+		   	out.println("<h2>");
+		   	out.println("Winner: " + matchScore.getWinner());
+		   	out.println("</h2>");
+		 }
+		%>
 	  </article>
 	</section>
 
   </section>
 </div>
-
-<a href="NewMatch.jsp">New Match</a>
-
 </body>
 </html>

@@ -13,6 +13,7 @@ public class PlayerScore {
     private int sets;
     private int games;
     private Points points = Points.ZERO;
+    private int tiebreakPoints;
 
     public PlayerScore(int sets, int games, Points points) {
         this.sets = sets;

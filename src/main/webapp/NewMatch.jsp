@@ -13,6 +13,16 @@
 	<title>New Match</title>
 </head>
 <body>
+
+<div class="head">
+  <section>
+	<article>
+	  <a href="${pageContext.request.contextPath}/main">Tennis Scoreboard</a>
+	  <a href="${pageContext.request.contextPath}/finishedMatches">Matches</a>
+	</article>
+  </section>
+</div>
+
 <div class="block">
 
 	<h2 class="heading">New Match</h2>
@@ -42,10 +52,6 @@
 
   %>
 
-
 </div>
-
-
-
 </body>
 </html>

@@ -10,15 +10,21 @@ h1, h2, p {
     text-align: center;
 }
 
-a {
+.main-link {
     text-align: center;
-    margin: auto;
 }
 
 .board {
     scale: inherit;
     border: 2px solid darkblue;
     background-color: blue;
+    min-width: 80px;
+}
+
+.matches {
+    scale: inherit;
+    background-color: darkcyan;
+    border: 2px solid #0d55b8;
 }
 
 table {
@@ -46,6 +52,16 @@ td {
     background-color: aqua;
 }
 
+.page-button {
+    align-self: center;
+    height: 25px;
+    width: 25px;
+    line-height: 50px;
+    text-align: center;
+    border: 3px solid lightslategray;
+    padding: 0 1rem;
+}
+
 
 .button-wrapper{
     background-image: url(static/rocket2.jpg);
@@ -58,9 +74,6 @@ td {
     padding: 0 1rem;
 }
 
-button {
-
-}
 
 p {
     padding: 30px;

@@ -8,7 +8,6 @@ import java.util.UUID;
 
 public class OngoingMatchesService extends Service {
 
-
     private final MatchScoreCalculationService scoreService = new MatchScoreCalculationService();
     private final FinishedMatchesPersistenceService finishedMatchesService = new FinishedMatchesPersistenceService();
 
@@ -35,7 +34,5 @@ public class OngoingMatchesService extends Service {
         FinishedMatch finishedMatch = finishedMatchesService.finishMatch(ongoingMatches.get(uuid));
         finishedMatchesService.saveMatch(finishedMatch);
     }
-
-
 
 }

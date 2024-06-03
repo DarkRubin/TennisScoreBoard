@@ -11,18 +11,20 @@
 <div class="head">
     <section>
         <article>
-            <a href="${pageContext.request.contextPath}/main">Tennis Scoreboard</a>
-            <a href="${pageContext.request.contextPath}/finishedMatches">Matches</a>
+            <a class="matches-link" href="${pageContext.request.contextPath}/finishedMatches">Matches</a>
+            <a class="main-link" href="${pageContext.request.contextPath}/main">Tennis Scoreboard</a>
+            <a class="new-match-link" href="${pageContext.request.contextPath}/new-match">New Match</a>
         </article>
     </section>
 </div>
 
-<div class="board">
-    <section>
+<div >
+    <section class="board">
         <h1>
             CORT No. 3
         </h1>
         <table>
+
             <thead>
             <tr>
                 <th scope="col">PLAYER</th>
@@ -32,8 +34,8 @@
                 <th scope="col">   </th>
             </tr>
             </thead>
-            <tbody>
 
+            <tbody>
             <tr>
                 <th scope="row">Player1</th>
                 <td>0</td>
@@ -52,8 +54,5 @@
         </table>
     </section>
 </div>
-
-<a href="NewMatch.jsp">New Match</a>
-
 </body>
 </html>

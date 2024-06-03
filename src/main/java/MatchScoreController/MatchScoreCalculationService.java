@@ -7,50 +7,52 @@ import model.Points;
 
 import java.util.UUID;
 
+import static model.Points.*;
+
 public class MatchScoreCalculationService extends Service {
 
     private MatchScore currentScore;
     private boolean tiebreak;
+    private Player winner;
+    private Player loser;
+    private PlayerScore winnerScore;
+    private PlayerScore loserScore;
 
     public void playerWinPoint(boolean isFirst, UUID uuid) {
-        if (tiebreak) {
-            return;
-        }
         currentScore = getMatchScore(uuid);
-        Player winner;
-        Player loser;
-        if (isFirst) {
-            winner = currentScore.getPlayer1();
-            loser = currentScore.getPlayer2();
+        getPlayers(isFirst);
+
+        if (tiebreak) {
+            tiebreakPointsAdding();
         } else {
-            winner = currentScore.getPlayer2();
-            loser = currentScore.getPlayer1();
+            defaultPointsAdding(currentScore.getPlayerPoints(winner),
+                    currentScore.getPlayerPoints(loser));
         }
+    }
 
-                Points winnerPoints = currentScore.getPlayerPoints(winner);
-        Points loserPoints = currentScore.getPlayerPoints(loser);
-
+    private void defaultPointsAdding(Points winnerPoints, Points loserPoints) {
         switch (winnerPoints) {
-            case ZERO -> winnerPoints = Points.FIFTEEN;
-            case FIFTEEN -> winnerPoints = Points.THIRTY;
+            case ZERO -> winnerPoints = FIFTEEN;
+            case FIFTEEN -> winnerPoints = THIRTY;
             case THIRTY -> {
-                if (loserPoints != Points.FORTY) {
-                    winnerPoints = Points.FORTY;
+                if (loserPoints != FORTY) {
+                    winnerPoints = FORTY;
                 } else {
-                    winnerPoints = Points.EXACTLY;
-                    loserPoints = Points.EXACTLY;
+                    winnerPoints = EXACTLY;
+                    loserPoints = EXACTLY;
                 }
             }
             case FORTY, MORE -> {
-                gameWin(winner, loser); return;
+                gameWin();
+                return;
             }
             case EXACTLY -> {
-                winnerPoints = Points.MORE;
-                loserPoints = Points.LESS;
+                winnerPoints = MORE;
+                loserPoints = LESS;
             }
             case LESS -> {
-                winnerPoints = Points.EXACTLY;
-                loserPoints = Points.EXACTLY;
+                winnerPoints = EXACTLY;
+                loserPoints = EXACTLY;
             }
         }
         if (!currentScore.isFinished()) {
@@ -59,28 +61,51 @@ public class MatchScoreCalculationService extends Service {
         }
     }
 
-
-    private void gameWin(Player winner, Player loser) {
-        PlayerScore winnerScore = currentScore.getThisPlayerScore(winner);
-        PlayerScore loserScore = currentScore.getThisPlayerScore(loser);
-        winnerScore.setPoints(Points.ZERO);
-        loserScore.setPoints(Points.ZERO);
-        winnerScore.setGames(winnerScore.getGames() + 1);
-        if (winnerScore.getGames() == 6) {
-            if (loserScore.getGames() == 6) {
-                tiebreak = true;
-            } else {
-                setWin(winnerScore, winner);
-            }
+    private void getPlayers(boolean isFirst) {
+        if (isFirst) {
+            winner = currentScore.getPlayer1();
+            loser = currentScore.getPlayer2();
+            winnerScore = currentScore.getFirstPlayerScore();
+            loserScore = currentScore.getSecondPlayerScore();
+        } else {
+            winner = currentScore.getPlayer2();
+            loser = currentScore.getPlayer1();
+            winnerScore = currentScore.getSecondPlayerScore();
+            loserScore = currentScore.getFirstPlayerScore();
         }
     }
 
+    private void tiebreakPointsAdding() {
+        int winnerTiebreakPoints = winnerScore.getTiebreakPoints();
+        int loserTiebreakPoints = loserScore.getTiebreakPoints();
 
-    private void setWin(PlayerScore winnerScore, Player winner) {
+        winnerScore.setTiebreakPoints(winnerTiebreakPoints++);
+
+        if (winnerTiebreakPoints > loserTiebreakPoints + 1 && winnerTiebreakPoints >= 7) {
+            gameWin();
+        }
+    }
+
+    private void gameWin() {
+        winnerScore.setPoints(ZERO);
+        loserScore.setPoints(ZERO);
+        int winnerGames = winnerScore.getGames();
+        int loserGames = loserScore.getGames();
+        winnerScore.setGames(winnerGames + 1);
+        if (winnerGames == 6 && loserGames == 6) {
+            tiebreak = true;
+        }
+        if (winnerGames >= 6 && winnerGames > loserGames + 1) {
+            setWin();
+        }
+    }
+
+    private void setWin() {
         winnerScore.setSets(winnerScore.getSets() + 1);
         winnerScore.setGames(0);
         if (winnerScore.getSets() == 2) {
             currentScore.setWinner(winner);
+            tiebreak = false;
             matchFinished();
         }
     }

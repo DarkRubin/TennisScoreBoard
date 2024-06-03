@@ -1,6 +1,7 @@
 package MatchScoreController;
 
 import DAO.DAO;
+import DTO.FinishedMatchDTO;
 import model.FinishedMatch;
 import model.MatchScore;
 
@@ -25,19 +26,30 @@ public class FinishedMatchesPersistenceService {
         return dao.findAllMatches();
     }
 
-    public int countPages(ArrayList<FinishedMatch> finishedMatches) {
-        int pages;
-        return pages = finishedMatches.size() / 10;
+    public int countPages(List<FinishedMatch> finishedMatches) {
+        return (finishedMatches.size() + 9 ) / 10;
     }
 
-    public List<FinishedMatch> readPage(List<FinishedMatch> finishedMatches, int page) {
+    public List<FinishedMatchDTO> readPage(List<FinishedMatch> finishedMatches, int page) {
         int number = (page - 1) * 10;
         List<FinishedMatch> result = new ArrayList<>(PAGE_SIZE);
         for (int i = 0, matchesSize = finishedMatches.size(); i < PAGE_SIZE ; i++) {
             if (number < matchesSize) {
                 result.add(finishedMatches.get(number));
                 number++;
-            } else return result;
+            } else return matchesToDTO(result);
+        }
+        return matchesToDTO(result);
+    }
+
+    private List<FinishedMatchDTO> matchesToDTO(List<FinishedMatch> matches) {
+        List<FinishedMatchDTO> result = new ArrayList<>();
+        for (FinishedMatch match : matches) {
+            FinishedMatchDTO matchDTO = new FinishedMatchDTO();
+            matchDTO.setFirstPlayerName(match.getPlayer1().getName());
+            matchDTO.setSecondPlayerName(match.getPlayer2().getName());
+            matchDTO.setWinnerPlayerName(match.getWinner().getName());
+            result.add(matchDTO);
         }
         return result;
     }

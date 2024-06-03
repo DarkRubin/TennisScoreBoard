@@ -11,8 +11,9 @@
 	<div class="head">
 	  <section>
 		<article>
-		  <a href="${pageContext.request.contextPath}/main">Tennis Scoreboard</a>
-		  <a href="${pageContext.request.contextPath}/finishedMatches">Matches</a>
+		  <a class="matches-link" href="${pageContext.request.contextPath}/finishedMatches">Matches</a>
+		  <a class="main-link" href="${pageContext.request.contextPath}/main">Tennis Scoreboard</a>
+		  <a class="new-match-link" href="${pageContext.request.contextPath}/new-match">New Match</a>
 		</article>
 	  </section>
 	</div>
@@ -47,8 +48,5 @@
 		</table>
 	  </section>
 	</div>
-
-  <a href="NewMatch.jsp">New Match</a>
-
   </body>
 </html>
