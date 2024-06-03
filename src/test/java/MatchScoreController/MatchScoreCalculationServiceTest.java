@@ -18,13 +18,42 @@ class MatchScoreCalculationServiceTest {
     private final UUID uuid = ongoingService.startNewMatch("Alex", "Roman");
 
     @Test
-    void pointAddTest() {
-
+    void matchWinning() {
+        //TODO
     }
 
+    @Test
+    void setFinishing() {
+        //TODO
+    }
 
     @Test
-    void tiebreakTest() {
+    void gameFinishing() {
+        //TODO
+    }
+
+    @Test
+    void firstPlayerWinPoint() {
+        //TODO
+    }
+
+    @Test
+    void secondPlayerWinPoint() {
+        //TODO
+    }
+
+    @Test
+    void tiebreakStarting() {
+        //TODO
+    }
+
+    @Test
+    void tiebreakFinishing() {
+        //TODO
+    }
+
+    @Test
+    void tiebreakPointAdding() {
         MatchScore matchScore = Service.getMatchScore(uuid);
         matchScore.setFirstPlayerScore(new PlayerScore(1, 6, Points.ZERO));
         matchScore.setSecondPlayerScore(new PlayerScore(1, 6, Points.ZERO));
