@@ -15,6 +15,7 @@ public class MatchScore {
     private PlayerScore firstPlayerScore;
     private PlayerScore secondPlayerScore;
     private boolean isFinished;
+    private boolean isTiebreak;
     private Player winner;
 
     public MatchScore(Player player1, Player player2) {

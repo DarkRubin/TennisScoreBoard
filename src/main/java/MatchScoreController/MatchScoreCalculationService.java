@@ -12,7 +12,6 @@ import static model.Points.*;
 public class MatchScoreCalculationService extends Service {
 
     private MatchScore currentScore;
-    private boolean tiebreak;
     private Player winner;
     private Player loser;
     private PlayerScore winnerScore;
@@ -22,7 +21,7 @@ public class MatchScoreCalculationService extends Service {
         currentScore = getMatchScore(uuid);
         getPlayers(isFirst);
 
-        if (tiebreak) {
+        if (currentScore.isTiebreak()) {
             tiebreakPointsAdding();
         } else {
             defaultPointsAdding(currentScore.getPlayerPoints(winner),
@@ -93,7 +92,7 @@ public class MatchScoreCalculationService extends Service {
         int loserGames = loserScore.getGames();
         winnerScore.setGames(winnerGames + 1);
         if (winnerGames == 6 && loserGames == 6) {
-            tiebreak = true;
+            currentScore.setTiebreak(true);
         }
         if (winnerGames >= 6 && winnerGames > loserGames + 1) {
             setWin();
@@ -105,7 +104,7 @@ public class MatchScoreCalculationService extends Service {
         winnerScore.setGames(0);
         if (winnerScore.getSets() == 2) {
             currentScore.setWinner(winner);
-            tiebreak = false;
+            currentScore.setTiebreak(false);
             matchFinished();
         }
     }

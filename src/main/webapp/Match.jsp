@@ -53,7 +53,11 @@
 			<%=firstPlayerScore.getGames()%>
 		  </td>
 		  <td>
-			<%=firstPlayerScore.getPointsInString()%>
+			<% if (matchScore.isTiebreak()) {
+                out.println(firstPlayerScore.getTiebreakPoints());
+            } else {
+                out.println(firstPlayerScore.getPointsInString());
+			}%>
 		  </td>
 		</tr>
 		<tr>
@@ -67,7 +71,11 @@
 			<%=secondPlayerScore.getGames()%>
 		  </td>
 		  <td>
-			<%=secondPlayerScore.getPointsInString()%>
+			<% if (matchScore.isTiebreak()) {
+			  out.println(secondPlayerScore.getTiebreakPoints());
+			} else {
+			  out.println(secondPlayerScore.getPointsInString());
+			}%>
 		  </td>
 		</tr>
 	  </tbody>
