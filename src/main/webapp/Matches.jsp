@@ -42,7 +42,7 @@
 	  </tr>
 	  </thead>
 	  <tbody>
-
+	  <%--TODO--%>
 	  <%
 		for (FinishedMatchDTO finishedMatch : finishedMatches) {
 		  out.println("<tr>");
@@ -60,18 +60,20 @@
 		  out.println("</tr>");
 		}
 	  %>
-
 	  </tbody>
 	</table>
   </section>
   <article class="pagination">
+	<form onsubmit="POST">
 	<%
 	  int pages = service.countPages(finishedMatchList);
       for (int i = 0; i < pages; i++) {
           out.println("<button class=\"page-button\">" );
           out.println((i + 1) +"</button>");
+
 	  }
 	%>
+	</form>
   </article>
 </div>
 

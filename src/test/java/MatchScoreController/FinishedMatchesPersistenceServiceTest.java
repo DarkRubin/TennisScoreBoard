@@ -1,6 +1,8 @@
 package MatchScoreController;
 
 import DTO.FinishedMatchDTO;
+import model.FinishedMatch;
+import model.Player;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,7 +14,10 @@ class FinishedMatchesPersistenceServiceTest {
 
     @Test
     void saveMatch() {
-        //TODO
+        Player player1 = new Player("Alex");
+        Player player2 = new Player("Nasty");
+        FinishedMatch finishedMatch = new FinishedMatch(player1, player2, player2);
+        matchesService.saveMatch(finishedMatch);
     }
 
     @Test
@@ -23,7 +28,9 @@ class FinishedMatchesPersistenceServiceTest {
 
     @Test
     void pagination() {
-        //TODO
+        List<FinishedMatch> finishedMatches = matchesService.findFinishedMatches();
+        List<FinishedMatchDTO> page = matchesService.readPage(finishedMatches, 3);
+        System.out.println(page);
     }
 
 }
