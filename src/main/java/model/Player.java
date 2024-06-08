@@ -28,7 +28,7 @@ public class Player extends Model {
     @OneToMany(mappedBy = "player1", targetEntity = FinishedMatch.class)
     private Collection<FinishedMatch> finishedMatch;
 
-    @OneToMany(mappedBy = "player2")
+    @OneToMany(mappedBy = "player2", targetEntity = FinishedMatch.class)
     private Collection<FinishedMatch> finishedMatch2;
 
     @Override

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.hibernate.query.SelectionQuery;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,11 +47,13 @@ public class DAO {
         }
     }
 
-    public Optional<Player> findPlayer(Player player) {
+    public Optional<Player> findPlayer(String playerName) {
         try (SessionFactory sessionFactory = buildSessionFactory();
             Session session = sessionFactory.openSession()) {
 
-            return Optional.of(session.find(Player.class, player));
+            SelectionQuery<Player> query = session.createSelectionQuery("from Player where name = :name", Player.class);
+            List<Player> player = query.setParameter("name", playerName).getResultList();
+            return Optional.of(player.get(0));
         }
     }
 
@@ -87,5 +90,15 @@ public class DAO {
             session.getTransaction().commit();
             return player;
         }
+    }
+
+    public List<FinishedMatch> findPlayerMatches(Player player) {
+        try (SessionFactory sessionFactory = buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+
+            SelectionQuery<FinishedMatch> query = session.createSelectionQuery("from FinishedMatch where player1 = :player or player2 = :player", FinishedMatch.class);
+            return query.setParameter("player", player).getResultList();
+        }
+
     }
 }

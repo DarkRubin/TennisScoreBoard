@@ -27,7 +27,7 @@ public class FinishedMatch extends Model {
     @JoinColumn(name = "player2", referencedColumnName = "id")
     private Player player2;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "winner", referencedColumnName = "id")
     private Player winner;
 

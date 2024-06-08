@@ -18,15 +18,13 @@ public class FinishedMatchesPersistenceService {
 
     public List<FinishedMatchDTO> findPlayerMatches(String playerName) {
         Player player;
-        Optional<Player> findPlayer = dao.findPlayer(new Player(playerName));
+        Optional<Player> findPlayer = dao.findPlayer(playerName);
         if (findPlayer.isPresent()) {
             player = findPlayer.get();
         } else {
             throw new PlayerNotFoundException();
         }
-        List<FinishedMatch> finishedMatch = (List<FinishedMatch>) player.getFinishedMatch();
-        finishedMatch.addAll(player.getFinishedMatch2());
-        return matchesToDTO(finishedMatch);
+        return matchesToDTO(dao.findPlayerMatches(player));
     }
 
     public List<FinishedMatchDTO> readPage(List<FinishedMatchDTO> finishedMatches, int page) {
