@@ -19,13 +19,13 @@
 <%
   Object matchesParam = request.getAttribute("matchesToPrint");
   if (matchesParam == null) {
-	response.sendRedirect(request.getContextPath() + "/Matches");
+	response.sendRedirect(request.getContextPath() + "/matches-controller");
   }
 %>
 
 <div class="matches">
   <section>
-	<form action="<c:url value="/Matches"/>" method="get">
+	<form action="<c:url value="/matches-controller"/>" method="get">
 	  <label for="filter_by_player_name">
 		<input type="text" name="filter_by_player_name" id="filter_by_player_name" placeholder="Enter player name">
 	  </label>

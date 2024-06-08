@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "Matches", value = "/Matches")
+@WebServlet(name = "Matches", value = "/matches-controller")
 public class Matches extends HttpServlet {
 
     private final FinishedMatchesPersistenceService matchesService = new FinishedMatchesPersistenceService();
