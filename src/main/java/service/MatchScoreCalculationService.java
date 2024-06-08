@@ -94,7 +94,7 @@ public class MatchScoreCalculationService {
         if (winnerGames == loserGames && winnerGames >= MIN_GAME_COUNT_FOR_WIN) {
             currentScore.setTiebreak(true);
         }
-        if (winnerGames >= MIN_GAME_COUNT_FOR_WIN && winnerGames > loserGames + 1) {
+        if (winnerGames >= MIN_GAME_COUNT_FOR_WIN && winnerGames > loserGames + 1 && !currentScore.isTiebreak()) {
             setWin();
         }
     }
