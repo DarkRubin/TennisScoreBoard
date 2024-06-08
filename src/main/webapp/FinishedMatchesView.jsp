@@ -53,11 +53,11 @@
   </section>
   <article class="pagination">
 	<%--@elvariable id="pages" type="java.util.List"--%>
+	<form action="${pageContext.request.contextPath}/matches-controller" method="get" id="page-form">
 	<c:forEach items="${pages}" var="page">
-	  <form action="<c:url value="/Matches"/>" method="get">
-		<input type="button" name="pageNumber" id="pageNumber" value="${page}">
-	  </form>
+		<input type="submit" name="pageNumber" form="page-form" id="pageNumber" value="${page}">
 	</c:forEach>
+	</form>
   </article>
 </div>
 
