@@ -1,6 +1,5 @@
 package controller;
 
-import jakarta.servlet.ServletException;
 import model.MatchScore;
 import service.OngoingMatchesService;
 import jakarta.servlet.http.*;
@@ -8,7 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 
 import java.io.IOException;
 
-@WebServlet(name = "newMatch", value = "/new-match")
+@WebServlet(name = "NewMatch", value = "/new-match")
 public class NewMatch extends HttpServlet {
 
     final OngoingMatchesService matchesService = new OngoingMatchesService();

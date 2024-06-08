@@ -10,7 +10,7 @@
   <section>
 	<article>
 	  <a href="<c:url value="/MainPage.jsp"/>">Tennis Scoreboard</a>
-	  <a href="<c:url value="/Matches"/>">Matches</a>
+	  <a href="<c:url value="/FinishedMatchesView.jsp"/>">Matches</a>
 	  <a href="<c:url value="/NewMatchView.jsp"/>">New Match</a>
 	</article>
   </section>

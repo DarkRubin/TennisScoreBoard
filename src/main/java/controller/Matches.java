@@ -2,8 +2,8 @@ package controller;
 
 import DTO.FinishedMatchDTO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
 import service.FinishedMatchesPersistenceService;
 
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class Matches extends HttpServlet {
         request.setAttribute("matchesToPrint", matchesService.readPage(matches, page));
         int pages = matchesService.countPages(matches);
         request.setAttribute("pages", pagesInList(pages));
-        request.getRequestDispatcher(String.format("/finishedMatches?page=%s", page)).forward(request, response);
+        request.getRequestDispatcher(String.format("/FinishedMatchesView?page=%s", page)).forward(request, response);
     }
 
     private List<Integer> pagesInList(int pagesCount) {
