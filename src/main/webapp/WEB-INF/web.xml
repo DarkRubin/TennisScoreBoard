@@ -20,45 +20,52 @@
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
 
+
     <servlet>
-        <servlet-name>Match.jsp</servlet-name>
-        <jsp-file>/Match.jsp</jsp-file>
-        <init-param>
-            <param-name>development</param-name>
-            <param-value>true</param-value>
-        </init-param>
+        <servlet-name>MatchResults.jsp</servlet-name>
+        <jsp-file>/MatchResults.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Match.jsp</servlet-name>
-        <url-pattern>/match-score</url-pattern>
+        <servlet-name>MatchResults.jsp</servlet-name>
+        <url-pattern>/match-score/finish</url-pattern>
     </servlet-mapping>
 
 
     <servlet>
-        <servlet-name>Matches</servlet-name>
-        <jsp-file>/Matches.jsp</jsp-file>
-        <init-param>
-            <param-name>development</param-name>
-            <param-value>true</param-value>
-        </init-param>
+        <servlet-name>MatchScoreView</servlet-name>
+        <jsp-file>/MatchScoreView.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Matches</servlet-name>
-        <url-pattern>/finishedMatches</url-pattern>
+        <servlet-name>MatchScoreView</servlet-name>
+        <url-pattern>/match-score/view</url-pattern>
     </servlet-mapping>
 
 
     <servlet>
-        <servlet-name>NewMatch</servlet-name>
-        <jsp-file>/NewMatch.jsp</jsp-file>
+        <servlet-name>FinishedMatchesView</servlet-name>
+        <jsp-file>/FinishedMatchesView.jsp</jsp-file>
         <init-param>
             <param-name>development</param-name>
             <param-value>true</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NewMatch</servlet-name>
-        <url-pattern>/new-match</url-pattern>
+        <servlet-name>FinishedMatchesView</servlet-name>
+        <url-pattern>/FinishedMatchesView</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>NewMatchView</servlet-name>
+        <jsp-file>/NewMatchView.jsp</jsp-file>
+        <init-param>
+            <param-name>development</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewMatchView</servlet-name>
+        <url-pattern>/new-match/view</url-pattern>
     </servlet-mapping>
 
 </web-app>

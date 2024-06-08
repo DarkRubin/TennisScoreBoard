@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Collection;
 
@@ -26,8 +25,11 @@ public class Player extends Model {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "player1")
+    @OneToMany(mappedBy = "player1", targetEntity = FinishedMatch.class)
     private Collection<FinishedMatch> finishedMatch;
+
+    @OneToMany(mappedBy = "player2")
+    private Collection<FinishedMatch> finishedMatch2;
 
     @Override
     public String toString() {
@@ -36,4 +38,5 @@ public class Player extends Model {
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

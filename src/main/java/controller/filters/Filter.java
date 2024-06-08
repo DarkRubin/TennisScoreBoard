@@ -1,4 +1,4 @@
-package servlets.filters;
+package controller.filters;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -14,7 +14,6 @@ public class Filter extends HttpFilter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-
         chain.doFilter(req, res);
     }
 }

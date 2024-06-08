@@ -1,31 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ page import="java.util.UUID" %>
-<%@ page import="java.util.UUID" %>
 <%@ page import="model.MatchScore" %>
 <%@ page import="model.PlayerScore" %>
-<%@ page import="MatchScoreController.Service" %>
 <html>
-
-<head>
-  <link rel="stylesheet" href="styles.css">
-  <title>Match Scoreboard</title>
-</head>
 
 <body>
 <div class="head">
   <section>
 	<article>
-	  <a href="${pageContext.request.contextPath}/main">Tennis Scoreboard</a>
-	  <a href="${pageContext.request.contextPath}/finishedMatches">Matches</a>
-	  <a href="${pageContext.request.contextPath}/new-match">New Match</a>
+	  <a href="${pageContext.request.contextPath}/MainPage.jsp">Tennis Scoreboard</a>
+	  <a href="${pageContext.request.contextPath}/Matches">Matches</a>
+	  <a href="${pageContext.request.contextPath}/NewMatchView.jsp">New Match</a>
 	</article>
   </section>
 </div>
 
 <%
-  UUID uuid = UUID.fromString(request.getParameter("uuid"));
-  MatchScore matchScore = Service.getMatchScore(uuid);
+  MatchScore matchScore = (MatchScore) request.getAttribute("matchScore");
   PlayerScore firstPlayerScore = matchScore.getFirstPlayerScore();
   PlayerScore secondPlayerScore = matchScore.getSecondPlayerScore();
 %>
@@ -71,7 +62,7 @@
 			<%=secondPlayerScore.getGames()%>
 		  </td>
 		  <td>
-			<% if (matchScore.isTiebreak()) {
+			<%if (matchScore.isTiebreak()) {
 			  out.println(secondPlayerScore.getTiebreakPoints());
 			} else {
 			  out.println(secondPlayerScore.getPointsInString());
@@ -80,35 +71,23 @@
 		</tr>
 	  </tbody>
 	</table>
-	<section>
-	  <article>
-
-		<form method="post" id="1"
-			  action="<%=String.format("/TennisScoreBoard/match-score/calculation?uuid=%s&id=%s",
-			   uuid, matchScore.getPlayer1().getId()) %>">
-		  <button class="button-wrapper" form="1" type="submit">First Player Win Point</button>
-		</form>
-
-		<form method="post" id="2"
-			  action="<%=String.format("/TennisScoreBoard/match-score/calculation?uuid=%s&id=%s",
-			   uuid, matchScore.getPlayer2().getId())%>">
-		  <button class="button-wrapper" form="2" type="submit"></button>
-		</form>
-
-		<%
-		 if (matchScore.isFinished()) {
-			out.println("<h2>");
-		   	out.println("Match Finished");
-		   	out.println("</h2>");
-		   	out.println("<h2>");
-		   	out.println("Winner: " + matchScore.getWinner());
-		   	out.println("</h2>");
-		 }
-		%>
-	  </article>
-	</section>
-
+  </section>
+  <section>
+	<%--@elvariable id="uuid" type="java.util.UUID"--%>
+	<form method="post"
+		  action="${pageContext.request.contextPath}/match-score?uuid=<%=request.getParameter("uuid")%>&id=<%=matchScore.getPlayer1().getId()%>">
+	  <button class="button-wrapper">1</button>
+	</form>
+	<form method="post"
+		  action="${pageContext.request.contextPath}/match-score?uuid=<%=request.getParameter("uuid")%>&id=<%=matchScore.getPlayer2().getId()%>">
+	  <button class="button-wrapper">2</button>
+	</form>
   </section>
 </div>
 </body>
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <title>Match Scoreboard</title>
+</head>
 </html>

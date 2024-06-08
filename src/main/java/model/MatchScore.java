@@ -30,14 +30,6 @@ public class MatchScore {
         return player.equals(player1) ? firstPlayerScore.getPoints() : secondPlayerScore.getPoints();
     }
 
-    public void setPlayerPoints(Player player, Points points) {
-        if (player.equals(player1)) {
-            firstPlayerScore.setPoints(points);
-        } else {
-            secondPlayerScore.setPoints(points);
-        }
-    }
-
     @Override
     public String toString() {
         return "Match{" +

@@ -9,7 +9,7 @@ class DAOTest {
     private final DAO dao = new DAO();
 
     @Test
-    void findOrSavePlayer() {
+    void findPlayerOrSavePlayer() {
         Player anton = dao.findOrSavePlayer("Anton");
         System.out.println(anton);
     }

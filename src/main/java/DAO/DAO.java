@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public class DAO {
@@ -16,17 +17,14 @@ public class DAO {
     static {
         try {
             Class.forName("org.postgresql.Driver");
-            System.out.println("SUCCESS");
         } catch (ClassNotFoundException e) {
-            System.out.println("ERROR");
             throw new RuntimeException(e);
         }
+
     }
 
     private static SessionFactory buildSessionFactory() {
-
-        Configuration configuration = new Configuration();
-        configuration.configure();
+        Configuration configuration = new Configuration().configure();
         return configuration.buildSessionFactory();
     }
 
@@ -40,11 +38,30 @@ public class DAO {
         }
     }
 
-    public List<FinishedMatch> findAllMatches() {
+    public List<FinishedMatch> findMatches() {
         try (SessionFactory sessionFactory = buildSessionFactory();
              Session session = sessionFactory.openSession()) {
 
             return session.createSelectionQuery("from FinishedMatch order by id DESC", FinishedMatch.class).getResultList();
+        }
+    }
+
+    public Optional<Player> findPlayer(Player player) {
+        try (SessionFactory sessionFactory = buildSessionFactory();
+            Session session = sessionFactory.openSession()) {
+
+            return Optional.of(session.find(Player.class, player));
+        }
+    }
+
+    public Player savePlayer(String name) {
+        try (SessionFactory sessionFactory = buildSessionFactory();
+            Session session = sessionFactory.openSession()) {
+
+            Player player = new Player(name);
+            session.persist(player);
+
+            return player;
         }
     }
 

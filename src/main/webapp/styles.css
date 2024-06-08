@@ -14,6 +14,10 @@ h1, h2, p {
     text-align: center;
 }
 
+form {
+    display: inline-block;
+}
+
 .board {
     scale: inherit;
     border: 2px solid darkblue;

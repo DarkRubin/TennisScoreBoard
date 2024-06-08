@@ -10,5 +10,5 @@ import lombok.ToString;
 public class FinishedMatchDTO {
     private String firstPlayerName;
     private String secondPlayerName;
-    private String winnerPlayerName;
+    private String winnerName;
 }
