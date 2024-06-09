@@ -1,6 +1,7 @@
 package controller;
 
 import DTO.FinishedMatchDTO;
+import exception.PlayerNotFoundException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -21,7 +22,11 @@ public class Matches extends HttpServlet {
         String pageParam = request.getParameter("pageNumber");
         String playerNameFilter = request.getParameter("filter_by_player_name");
         if (playerNameFilter != null && !playerNameFilter.isEmpty()) {
-            matches = matchesService.findPlayerMatches(playerNameFilter);
+            try {
+                matches = matchesService.findPlayerMatches(playerNameFilter);
+            } catch (PlayerNotFoundException e) {
+                matches = new ArrayList<>();
+            }
         } else {
             matches = matchesService.matchesToDTO(matchesService.findFinishedMatches());
         }

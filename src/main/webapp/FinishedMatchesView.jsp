@@ -35,9 +35,16 @@
 	<table id="table">
 	  <thead>
 	  <tr>
-		<th scope="col">Player1</th>
-		<th scope="col">Player2</th>
-		<th scope="col">Winner</th>
+		<c:choose>
+		  <c:when test="${matchesToPrint.size() eq 0}">
+			<h2>Player not found</h2>
+		  </c:when>
+		  <c:otherwise>
+			<th scope="col">Player1</th>
+			<th scope="col">Player2</th>
+			<th scope="col">Winner</th>
+		  </c:otherwise>
+		</c:choose>
 	  </tr>
 	  </thead>
 	  <tbody>

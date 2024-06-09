@@ -53,7 +53,11 @@ public class DAO {
 
             SelectionQuery<Player> query = session.createSelectionQuery("from Player where name = :name", Player.class);
             List<Player> player = query.setParameter("name", playerName).getResultList();
-            return Optional.of(player.get(0));
+            try {
+                return Optional.ofNullable(player.get(0));
+            } catch (IndexOutOfBoundsException e) {
+                return Optional.empty();
+            }
         }
     }
 
