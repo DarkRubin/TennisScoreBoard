@@ -19,18 +19,17 @@ public class Matches extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<FinishedMatchDTO> matches;
         String pageParam = request.getParameter("pageNumber");
-        String filterByPlayerName = request.getParameter("filter_by_player_name");
-        if (filterByPlayerName != null) {
-            matches = matchesService.findPlayerMatches(filterByPlayerName);
+        String playerNameFilter = request.getParameter("filter_by_player_name");
+        if (playerNameFilter != null && !playerNameFilter.isEmpty()) {
+            matches = matchesService.findPlayerMatches(playerNameFilter);
         } else {
             matches = matchesService.matchesToDTO(matchesService.findFinishedMatches());
         }
-        int page = pageParam == null || pageParam.isEmpty() ? 1 : Integer.parseInt(pageParam);
-
-        request.setAttribute("matchesToPrint", matchesService.readPage(matches, page));
         int pages = matchesService.countPages(matches);
+        int page = pageParam == null || pageParam.isEmpty() ? 1 : Integer.parseInt(pageParam);
+        request.setAttribute("matchesToPrint", matchesService.readPage(matches, page));
         request.setAttribute("pages", pagesInList(pages));
-        request.getRequestDispatcher(String.format("/FinishedMatchesView?page=%s", page)).forward(request, response);
+        getServletContext().getRequestDispatcher("/FinishedMatchesView").forward(request, response);
     }
 
     private List<Integer> pagesInList(int pagesCount) {

@@ -17,17 +17,18 @@
 </div>
 
 <%
-  Object matchesParam = request.getAttribute("matchesToPrint");
-  if (matchesParam == null) {
-	response.sendRedirect(request.getContextPath() + "/matches-controller");
+  String url = request.getContextPath() + "/matches-controller";
+
+  if (request.getAttribute("matchesToPrint") == null) {
+	response.sendRedirect(url);
   }
 %>
 
 <div class="matches">
   <section>
-	<form action="<c:url value="/matches-controller"/>" method="get">
+	<form action="<%=url%>" method="get">
 	  <label for="filter_by_player_name">
-		<input type="text" name="filter_by_player_name" id="filter_by_player_name" placeholder="Enter player name">
+		<input type="text" name="filter_by_player_name" placeholder="Enter player name">
 	  </label>
 	  <button type="submit">Search</button>
 	</form>
@@ -53,10 +54,17 @@
   </section>
   <article class="pagination">
 	<%--@elvariable id="pages" type="java.util.List"--%>
-	<form action="${pageContext.request.contextPath}/matches-controller" method="get" id="page-form">
-	<c:forEach items="${pages}" var="page">
+	<%
+	  String attribute = (String) request.getAttribute("filter_by_player_name");
+	  if (attribute != null && !attribute.isEmpty()) {
+          request.setAttribute("url", url + "?filter_by_player_name=" + attribute);
+	  }
+	%>
+	<form action="${url}" method="get" id="page-form">
+	  <input type="hidden" name="filter_by_player_name" form="page-form" id="filter_by_player_name" value="${pageContext.request.getParameter("filter_by_player_name")}">
+	  <c:forEach items="${pages}" var="page">
 		<input type="submit" name="pageNumber" form="page-form" id="pageNumber" value="${page}">
-	</c:forEach>
+	  </c:forEach>
 	</form>
   </article>
 </div>
