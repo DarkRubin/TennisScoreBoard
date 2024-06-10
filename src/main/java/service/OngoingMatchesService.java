@@ -17,9 +17,8 @@ public class OngoingMatchesService {
     private static final Map<UUID, MatchScore> ONGOING_MATCHES = new HashMap<>();
 
     public MatchScore startNewMatch(String one, String two) {
-
-        Player player1 = dao.findOrSavePlayer(one);
-        Player player2 = dao.findOrSavePlayer(two);
+        Player player1 = findOrSavePlayer(one);
+        Player player2 = findOrSavePlayer(two);
 
         MatchScore matchScore = new MatchScore(player1, player2);
 
@@ -34,6 +33,10 @@ public class OngoingMatchesService {
     protected void matchEnd(MatchScore matchScore) {
         FinishedMatch finishedMatch = finishedMatchesService.finishMatch(matchScore);
         finishedMatchesService.saveMatch(finishedMatch);
+    }
+
+    private Player findOrSavePlayer(String name) {
+        return dao.findPlayer(name).orElse(dao.savePlayer(name));
     }
 
 }
