@@ -2,7 +2,7 @@ package service;
 
 import DAO.DAO;
 import model.FinishedMatch;
-import model.MatchScore;
+import match.MatchScore;
 import model.Player;
 
 import java.util.HashMap;

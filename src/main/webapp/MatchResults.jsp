@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
-<%@ page import="model.MatchScore" %>
-<%@ page import="model.PlayerScore" %>
+<%@ page import="match.MatchScore" %>
+<%@ page import="match.PlayerScore" %>
 <html>
 <head>
   <title>Match Results</title>

@@ -12,7 +12,7 @@ import java.util.Collection;
 @Entity
 @NoArgsConstructor
 @Table(name = "players")
-public class Player extends Model {
+public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

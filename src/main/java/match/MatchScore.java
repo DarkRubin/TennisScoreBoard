@@ -1,7 +1,8 @@
-package model;
+package match;
 
 import lombok.Getter;
 import lombok.Setter;
+import model.Player;
 
 import java.util.UUID;
 
@@ -24,10 +25,6 @@ public class MatchScore {
         this.firstPlayerScore = new PlayerScore();
         this.secondPlayerScore = new PlayerScore();
         this.uuid = UUID.randomUUID();
-    }
-
-    public Points getPlayerPoints(Player player) {
-        return player.equals(player1) ? firstPlayerScore.getPoints() : secondPlayerScore.getPoints();
     }
 
     @Override

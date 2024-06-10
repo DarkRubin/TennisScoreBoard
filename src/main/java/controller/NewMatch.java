@@ -4,7 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.MatchScore;
+import match.MatchScore;
 import service.OngoingMatchesService;
 import jakarta.servlet.annotation.WebServlet;
 

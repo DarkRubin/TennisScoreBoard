@@ -1,11 +1,11 @@
 package service;
 
-import model.MatchScore;
+import match.MatchScore;
 import model.Player;
-import model.PlayerScore;
-import model.Points;
+import match.PlayerScore;
+import match.Points;
 
-import static model.Points.*;
+import static match.Points.*;
 
 public class MatchScoreCalculationService {
 

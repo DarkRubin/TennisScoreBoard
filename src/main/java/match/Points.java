@@ -1,4 +1,4 @@
-package model;
+package match;
 
 public enum Points {
     ZERO,

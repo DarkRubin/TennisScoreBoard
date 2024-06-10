@@ -1,15 +1,15 @@
 package controller;
 
 
-import model.MatchScore;
+import match.MatchScore;
 import model.Player;
-import model.PlayerScore;
-import model.Points;
+import match.PlayerScore;
+import match.Points;
 import org.junit.jupiter.api.Test;
 import service.MatchScoreCalculationService;
 import service.OngoingMatchesService;
 
-import static model.Points.*;
+import static match.Points.*;
 
 class MatchScoreCalculationServiceTest {
 
@@ -26,6 +26,14 @@ class MatchScoreCalculationServiceTest {
         matchScore.setFirstPlayerScore(new PlayerScore(0, 4, THIRTY));
         matchScore.setSecondPlayerScore(new PlayerScore(0, 5, FORTY));
         return matchScore;
+    }
+
+    Points getPlayerPoints(MatchScore matchScore,boolean isFirst) {
+        if (isFirst) {
+            return matchScore.getFirstPlayerScore().getPoints();
+        } else {
+            return matchScore.getSecondPlayerScore().getPoints();
+        }
     }
 
     @Test
@@ -66,8 +74,8 @@ class MatchScoreCalculationServiceTest {
         exampleMatch.setFirstPlayerScore(new PlayerScore(0, 0, ZERO));
         exampleMatch.setSecondPlayerScore(new PlayerScore(0, 0, ZERO));
         service.playerWinPoint(1, exampleMatch);
-        Points firstPlayerPoint = exampleMatch.getPlayerPoints(exampleMatch.getPlayer1());
-        Points secondPlayerPoint = exampleMatch.getPlayerPoints(exampleMatch.getPlayer2());
+        Points firstPlayerPoint = getPlayerPoints(exampleMatch, true);
+        Points secondPlayerPoint = getPlayerPoints(exampleMatch, false);
         assert firstPlayerPoint == FIFTEEN;
         assert secondPlayerPoint == ZERO;
     }
@@ -78,8 +86,8 @@ class MatchScoreCalculationServiceTest {
         exampleMatch.setFirstPlayerScore(new PlayerScore(0, 0, ZERO));
         exampleMatch.setSecondPlayerScore(new PlayerScore(0, 0, ZERO));
         service.playerWinPoint(2, exampleMatch);
-        Points firstPlayerPoint = exampleMatch.getPlayerPoints(exampleMatch.getPlayer1());
-        Points secondPlayerPoint = exampleMatch.getPlayerPoints(exampleMatch.getPlayer2());
+        Points firstPlayerPoint = getPlayerPoints(exampleMatch, true);
+        Points secondPlayerPoint = getPlayerPoints(exampleMatch, false);
         assert firstPlayerPoint == ZERO;
         assert secondPlayerPoint == FIFTEEN;
     }
@@ -90,8 +98,8 @@ class MatchScoreCalculationServiceTest {
         exampleMatch.setFirstPlayerScore(new PlayerScore(0, 5, FORTY));
         exampleMatch.setSecondPlayerScore(new PlayerScore(0, 6, THIRTY));
         service.playerWinPoint(1, exampleMatch);
-        Points firstPlayerPoint = exampleMatch.getPlayerPoints(exampleMatch.getPlayer1());
-        Points secondPlayerPoint = exampleMatch.getPlayerPoints(exampleMatch.getPlayer2());
+        Points firstPlayerPoint = getPlayerPoints(exampleMatch, true);
+        Points secondPlayerPoint = getPlayerPoints(exampleMatch, false);
         assert firstPlayerPoint == ZERO;
         assert secondPlayerPoint == ZERO;
         assert exampleMatch.isTiebreak();

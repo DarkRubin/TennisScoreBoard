@@ -3,7 +3,7 @@ package service;
 import DAO.DAO;
 import DTO.FinishedMatchDTO;
 import model.FinishedMatch;
-import model.MatchScore;
+import match.MatchScore;
 import model.Player;
 import exception.PlayerNotFoundException;
 
