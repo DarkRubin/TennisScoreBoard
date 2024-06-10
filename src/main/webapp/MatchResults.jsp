@@ -67,8 +67,8 @@
     </table>
     <section>
       <article>
-        <h2>Match Finished!</h2>
-        <h2>Winner: <%=matchScore.getWinner().getName()%></h2>
+        <h3>Match Finished!</h3>
+        <h3>Winner: <%=matchScore.getWinner().getName()%></h3>
       </article>
     </section>
 </div>

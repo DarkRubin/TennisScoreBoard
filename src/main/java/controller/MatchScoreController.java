@@ -1,11 +1,13 @@
 package controller;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.UUID;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import model.MatchScore;
 import service.MatchScoreCalculationService;
 import service.OngoingMatchesService;
@@ -21,14 +23,20 @@ public class MatchScoreController extends HttpServlet {
         String idParam = request.getParameter("id");
         MatchScore matchScore = service.getMatchScore(uuid);
         request.setAttribute("matchScore", matchScore);
-        if (idParam != null) {
-            long id = Long.parseLong(idParam);
-            calculationService.playerWinPoint(id, matchScore);
-            if (matchScore.isFinished()) {
-                getServletContext().getRequestDispatcher(request.getContextPath() + "/match-score/finish").forward(request, response);
-            }
+        long id = Long.parseLong(idParam);
+        calculationService.playerWinPoint(id, matchScore);
+
+        if (matchScore.isFinished()) {
+            getServletContext().getRequestDispatcher("/match-score/finish").forward(request, response);
         }
-        getServletContext().getRequestDispatcher(request.getContextPath() + "/match-score/view").forward(request, response);
+        getServletContext().getRequestDispatcher("/match-score/view").forward(request, response);
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UUID uuid = UUID.fromString(request.getParameter("uuid"));
+        MatchScore matchScore = service.getMatchScore(uuid);
+        request.setAttribute("matchScore", matchScore);
+        getServletContext().getRequestDispatcher("/match-score/view").forward(request, response);
+    }
 }
