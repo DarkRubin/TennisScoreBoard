@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -16,6 +17,11 @@
 </div>
 <div class="block">
 	<h2 class="heading">New Match</h2>
+
+  	<c:if test="<%=request.getParameter("players_equals_error") != null%>">
+		<h3>Players cant equals!</h3>
+  	</c:if>
+
 	<form method="post" action="${pageContext.request.contextPath}/new-match">
 	  <label for="player1">Enter First Player Name: </label><input id="player1" name="player1" type="text" required/>
 	  <label for="player2">Enter Second Player Name: </label><input id="player2" name="player2" type="text" required/>

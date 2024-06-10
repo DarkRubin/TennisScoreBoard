@@ -17,9 +17,7 @@ public class MatchScoreController extends HttpServlet {
     private final MatchScoreCalculationService calculationService = new MatchScoreCalculationService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String uuid1 = request.getParameter("uuid");
-        System.out.println(uuid1);
-        UUID uuid = UUID.fromString(uuid1);
+        UUID uuid = UUID.fromString(request.getParameter("uuid"));
         String idParam = request.getParameter("id");
         MatchScore matchScore = service.getMatchScore(uuid);
         request.setAttribute("matchScore", matchScore);
@@ -27,10 +25,10 @@ public class MatchScoreController extends HttpServlet {
             long id = Long.parseLong(idParam);
             calculationService.playerWinPoint(id, matchScore);
             if (matchScore.isFinished()) {
-                request.getRequestDispatcher(String.format("/match-score/finish?uuid=%s", uuid)).forward(request, response);
+                getServletContext().getRequestDispatcher(request.getContextPath() + "/match-score/finish").forward(request, response);
             }
         }
-        request.getRequestDispatcher(String.format("/match-score/view?uuid=%s", uuid)).forward(request, response);
+        getServletContext().getRequestDispatcher(request.getContextPath() + "/match-score/view").forward(request, response);
     }
 
 }
