@@ -63,8 +63,8 @@ class MatchScoreCalculationServiceTest {
         exampleMatch.setFirstPlayerScore(new PlayerScore(0, 0, FORTY));
         exampleMatch.setSecondPlayerScore(new PlayerScore(0, 0, FIFTEEN));
         service.playerWinPoint(1, exampleMatch);
-        assert exampleMatch.getFirstPlayerScore().getPointsInString().equals("0");
-        assert exampleMatch.getSecondPlayerScore().getPointsInString().equals("0");
+        assert exampleMatch.getFirstPlayerScore().getPoints() == ZERO;
+        assert exampleMatch.getSecondPlayerScore().getPoints() == ZERO;
         assert exampleMatch.getFirstPlayerScore().getGames() == 1;
     }
 

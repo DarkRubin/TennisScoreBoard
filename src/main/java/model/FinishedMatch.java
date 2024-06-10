@@ -12,7 +12,7 @@ import lombok.ToString;
 @Entity
 @ToString
 @NoArgsConstructor
-@Table(name = "matches")
+@Table(name = "MATCHES")
 public class FinishedMatch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +20,15 @@ public class FinishedMatch {
     private int id;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "player1", referencedColumnName = "id")
+    @JoinColumn(name = "PLAYER1", referencedColumnName = "ID")
     private Player player1;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "player2", referencedColumnName = "id")
+    @JoinColumn(name = "PLAYER2", referencedColumnName = "ID")
     private Player player2;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "winner", referencedColumnName = "id")
+    @JoinColumn(name = "WINNER", referencedColumnName = "ID")
     private Player winner;
 
     public FinishedMatch(Player player1, Player player2, Player winner) {

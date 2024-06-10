@@ -1,0 +1,2 @@
+create table PLAYERS ( ID INTEGER auto_increment, NAME CHARACTER VARYING constraint PLAYERS_PK unique, constraint PLAYERS_PK_2 primary key (ID));
+create table MATCHES ( ID INTEGER auto_increment, PLAYER1 INTEGER, PLAYER2 INTEGER, WINNER INTEGER, constraint MATCHES_PK primary key (ID), constraint MATCHES_PLAYERS_ID_FK foreign key (PLAYER1) references PLAYERS, constraint MATCHES_PLAYERS_ID_FK_2 foreign key (PLAYER2) references PLAYERS, constraint MATCHES_PLAYERS_ID_FK_3 foreign key (WINNER) references PLAYERS );

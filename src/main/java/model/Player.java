@@ -11,24 +11,24 @@ import java.util.Collection;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "players")
+@Table(name = "PLAYERS")
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
 
     public Player(String name) {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "player1", targetEntity = FinishedMatch.class)
+    @OneToMany(mappedBy = "player1", targetEntity = FinishedMatch.class, fetch = FetchType.LAZY)
     private Collection<FinishedMatch> finishedMatch;
 
-    @OneToMany(mappedBy = "player2", targetEntity = FinishedMatch.class)
+    @OneToMany(mappedBy = "player2", targetEntity = FinishedMatch.class, fetch = FetchType.LAZY)
     private Collection<FinishedMatch> finishedMatch2;
 
     @Override
