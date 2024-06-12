@@ -11,48 +11,45 @@ import org.hibernate.query.SelectionQuery;
 import java.io.*;
 import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 
 
 public class DAO {
 
     private static final SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
-    public static final String FILL_MATCHES_TABLE_SQL = "src/main/resources/fill_matches_table.sql";
-    public static final String FILL_PLAYERS_TABLE_SQL = "src/main/resources/fill_players_table.sql";
-    public static final String CREATE_TABLES_SQL = "src/main/resources/create_tables.sql";
-    public static final String H2_DRIVER = "org.h2.Driver";
+    public static final String CREATE_TABLES_SQL = "/create_tables.sql";
+    public static final String FILL_PLAYERS_TABLE_SQL = "/fill_players_table.sql";
+    public static final String FILL_MATCHES_TABLE_SQL = "/fill_matches_table.sql";
 
     static {
         try {
-            Class.forName(H2_DRIVER);
-        } catch (ClassNotFoundException e) {
+            createAndFillTables();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        DAO dao = new DAO();
-        createTables();
-        fillTables();
-        dao.findPlayer("Caroline").ifPresent(System.out::println);
-    }
-
-    private static void fillTables() throws FileNotFoundException {
+    private static void createAndFillTables() throws IOException {
         try (Session session = SESSION_FACTORY.openSession()) {
             session.beginTransaction();
-
-            Scanner scanner = new Scanner(new File(FILL_PLAYERS_TABLE_SQL));
-            readAndExecuteSQL(scanner, session);
-            scanner = new Scanner(new File(FILL_MATCHES_TABLE_SQL));
-            readAndExecuteSQL(scanner, session);
+            readFile(CREATE_TABLES_SQL, session);
+            readFile(FILL_PLAYERS_TABLE_SQL, session);
+            readFile(FILL_MATCHES_TABLE_SQL, session);
             session.getTransaction().commit();
         }
     }
 
-    private static void readAndExecuteSQL(Scanner scanner, Session session) {
-        while (scanner.hasNextLine()) {
-            NativeQuery<Void> query = session.createNativeQuery(scanner.nextLine(), void.class);
-            query.executeUpdate();
+    private static void readFile(String filePath, Session session) throws IOException {
+        try (InputStream inputStream = DAO.class.getResourceAsStream(filePath)) {
+            if (inputStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    NativeQuery<Void> query = session.createNativeQuery(line, void.class);
+                    query.executeUpdate();
+                }
+            } else {
+                throw new FileNotFoundException();
+            }
         }
     }
 
@@ -64,19 +61,9 @@ public class DAO {
         }
     }
 
-    public static void createTables() throws IOException {
-        try (Session session = SESSION_FACTORY.openSession()) {
-            session.beginTransaction();
-
-            Scanner scanner = new Scanner(new File(CREATE_TABLES_SQL));
-            readAndExecuteSQL(scanner, session);
-            session.getTransaction().commit();
-        }
-    }
-
     public List<FinishedMatch> findMatches() {
         try (Session session = SESSION_FACTORY.openSession()) {
-            return session.createSelectionQuery("from FinishedMatch order by id DESC", FinishedMatch.class).getResultList();
+            return session.createSelectionQuery("from FinishedMatch", FinishedMatch.class).getResultList();
         }
     }
 
@@ -105,6 +92,7 @@ public class DAO {
             SelectionQuery<FinishedMatch> query = session.createSelectionQuery("from FinishedMatch where player1 = :player or player2 = :player", FinishedMatch.class);
             return query.setParameter("player", player).getResultList();
         }
-
     }
 }
+
+
