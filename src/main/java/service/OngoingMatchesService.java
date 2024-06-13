@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class OngoingMatchesService {
 
-    private final DAO dao = new DAO();
+    private final DAO dao = DAO.getInstance();
     private final FinishedMatchesPersistenceService finishedMatchesService = new FinishedMatchesPersistenceService();
     private static final Map<UUID, MatchScore> ONGOING_MATCHES = new HashMap<>();
 
@@ -36,7 +36,7 @@ public class OngoingMatchesService {
     }
 
     private Player findOrSavePlayer(String name) {
-        return dao.findPlayer(name).orElse(dao.savePlayer(name));
+        return dao.findPlayer(name).orElseGet(() -> dao.savePlayer(name));
     }
 
 }

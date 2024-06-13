@@ -17,7 +17,7 @@ public class FinishedMatch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PLAYER1", referencedColumnName = "ID")

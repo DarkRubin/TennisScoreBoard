@@ -14,7 +14,7 @@ import java.util.Optional;
 public class FinishedMatchesPersistenceService {
 
     public static final int PAGE_SIZE = 10;
-    private final DAO dao = new DAO();
+    private final DAO dao = DAO.getInstance();
 
     public List<FinishedMatchDTO> findPlayerMatches(String playerName) {
         Player player;

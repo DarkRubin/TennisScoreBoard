@@ -13,10 +13,11 @@ import static match.Points.*;
 
 class MatchScoreCalculationServiceTest {
 
-    public static final String PLAYER_NAME = "Roman";
+    public static final String FIRST = "Alex";
+    public static final String SECOND = "Roman";
     private final OngoingMatchesService ongoingService = new OngoingMatchesService();
     private final MatchScoreCalculationService service = new MatchScoreCalculationService();
-    private final MatchScore matchScore = ongoingService.startNewMatch("Alex", PLAYER_NAME);
+    private final MatchScore matchScore = ongoingService.startNewMatch(FIRST, SECOND);
 
 
     MatchScore getExampleMatch() {
@@ -40,9 +41,9 @@ class MatchScoreCalculationServiceTest {
     void matchWinning() {
         matchScore.setFirstPlayerScore(new PlayerScore(1, 4, THIRTY));
         matchScore.setSecondPlayerScore(new PlayerScore(1, 5, FORTY));
-        service.playerWinPoint(2, matchScore);
+        service.playerWinPoint(matchScore.getPlayer2().getId(), matchScore);
         Player winner = matchScore.getWinner();
-        assert PLAYER_NAME.equals(winner.getName());
+        assert SECOND.equals(winner.getName());
         assert matchScore.isFinished();
         assert matchScore.getSecondPlayerScore().getSets() == 2;
     }
@@ -50,7 +51,7 @@ class MatchScoreCalculationServiceTest {
     @Test
     void setFinishing() {
         MatchScore exampleMatch = getExampleMatch();
-        service.playerWinPoint(2, exampleMatch);
+        service.playerWinPoint(exampleMatch.getPlayer2().getId(), exampleMatch);
         assert exampleMatch.getSecondPlayerScore().getSets() == 1;
         assert exampleMatch.getFirstPlayerScore().getSets() == 0;
         assert exampleMatch.getFirstPlayerScore().getGames() == 0;
@@ -62,7 +63,7 @@ class MatchScoreCalculationServiceTest {
         MatchScore exampleMatch = getExampleMatch();
         exampleMatch.setFirstPlayerScore(new PlayerScore(0, 0, FORTY));
         exampleMatch.setSecondPlayerScore(new PlayerScore(0, 0, FIFTEEN));
-        service.playerWinPoint(1, exampleMatch);
+        service.playerWinPoint(exampleMatch.getPlayer1().getId(), exampleMatch);
         assert exampleMatch.getFirstPlayerScore().getPoints() == ZERO;
         assert exampleMatch.getSecondPlayerScore().getPoints() == ZERO;
         assert exampleMatch.getFirstPlayerScore().getGames() == 1;
@@ -73,7 +74,7 @@ class MatchScoreCalculationServiceTest {
         MatchScore exampleMatch = getExampleMatch();
         exampleMatch.setFirstPlayerScore(new PlayerScore(0, 0, ZERO));
         exampleMatch.setSecondPlayerScore(new PlayerScore(0, 0, ZERO));
-        service.playerWinPoint(1, exampleMatch);
+        service.playerWinPoint(exampleMatch.getPlayer1().getId(), exampleMatch);
         Points firstPlayerPoint = getPlayerPoints(exampleMatch, true);
         Points secondPlayerPoint = getPlayerPoints(exampleMatch, false);
         assert firstPlayerPoint == FIFTEEN;
@@ -85,7 +86,7 @@ class MatchScoreCalculationServiceTest {
         MatchScore exampleMatch = getExampleMatch();
         exampleMatch.setFirstPlayerScore(new PlayerScore(0, 0, ZERO));
         exampleMatch.setSecondPlayerScore(new PlayerScore(0, 0, ZERO));
-        service.playerWinPoint(2, exampleMatch);
+        service.playerWinPoint(exampleMatch.getPlayer2().getId(), exampleMatch);
         Points firstPlayerPoint = getPlayerPoints(exampleMatch, true);
         Points secondPlayerPoint = getPlayerPoints(exampleMatch, false);
         assert firstPlayerPoint == ZERO;
@@ -97,7 +98,7 @@ class MatchScoreCalculationServiceTest {
         MatchScore exampleMatch = getExampleMatch();
         exampleMatch.setFirstPlayerScore(new PlayerScore(0, 5, FORTY));
         exampleMatch.setSecondPlayerScore(new PlayerScore(0, 6, THIRTY));
-        service.playerWinPoint(1, exampleMatch);
+        service.playerWinPoint(exampleMatch.getPlayer1().getId(), exampleMatch);
         Points firstPlayerPoint = getPlayerPoints(exampleMatch, true);
         Points secondPlayerPoint = getPlayerPoints(exampleMatch, false);
         assert firstPlayerPoint == ZERO;
@@ -114,7 +115,7 @@ class MatchScoreCalculationServiceTest {
         exampleMatch.setSecondPlayerScore(new PlayerScore(0, 8, ZERO));
         exampleMatch.getFirstPlayerScore().setTiebreakPoints(7);
         exampleMatch.getSecondPlayerScore().setTiebreakPoints(8);
-        service.playerWinPoint(2, exampleMatch);
+        service.playerWinPoint(exampleMatch.getPlayer2().getId(), exampleMatch);
         assert !exampleMatch.isTiebreak();
         assert exampleMatch.getFirstPlayerScore().getGames() == 0;
         assert exampleMatch.getSecondPlayerScore().getGames() == 0;
@@ -127,7 +128,7 @@ class MatchScoreCalculationServiceTest {
         exampleMatch.setTiebreak(true);
         exampleMatch.setFirstPlayerScore(new PlayerScore(1, 6, ZERO));
         exampleMatch.setSecondPlayerScore(new PlayerScore(1, 6, ZERO));
-        service.playerWinPoint(1, exampleMatch);
+        service.playerWinPoint(exampleMatch.getPlayer1().getId(), exampleMatch);
         PlayerScore score = exampleMatch.getFirstPlayerScore();
         PlayerScore score2 = exampleMatch.getSecondPlayerScore();
 

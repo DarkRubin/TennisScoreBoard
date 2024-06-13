@@ -66,7 +66,7 @@
       </tbody>
     </table>
     <section>
-      <article>
+      <article class="winner-show">
         <h3>Match Finished!</h3>
         <h3>Winner: <%=matchScore.getWinner().getName()%></h3>
       </article>

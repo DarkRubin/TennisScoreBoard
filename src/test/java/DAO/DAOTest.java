@@ -8,7 +8,7 @@ import java.util.Optional;
 
 class DAOTest {
 
-    private final DAO dao = new DAO();
+    private final DAO dao = DAO.getInstance();
 
     @Test
     void findPlayer() {

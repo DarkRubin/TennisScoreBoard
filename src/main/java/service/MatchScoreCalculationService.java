@@ -62,7 +62,7 @@ public class MatchScoreCalculationService {
     }
 
     private void getPlayers(long id) {
-        if (id == 1) {
+        if (id == currentScore.getPlayer1().getId()) {
             winner = currentScore.getPlayer1();
             winnerScore = currentScore.getFirstPlayerScore();
             loserScore = currentScore.getSecondPlayerScore();
