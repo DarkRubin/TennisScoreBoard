@@ -18,7 +18,7 @@
 
 <div class="matches">
   <section>
-	<form action="<%=url%>" method="get">
+	<form action="<%=url%>" method="get" class="search-form">
 	  <label for="filter_by_player_name">
 		<input type="text" name="filter_by_player_name" placeholder="Enter player name">
 	  </label>
@@ -59,7 +59,7 @@
           request.setAttribute("url", url + "?filter_by_player_name=" + attribute);
 	  }
 	%>
-	<form action="${url}" method="get" id="page-form">
+	<form action="${url}" method="get" id="page-form" class="pages-form">
 	  <input type="hidden" name="filter_by_player_name" form="page-form" id="filter_by_player_name" value="${pageContext.request.getParameter("filter_by_player_name")}">
 	  <c:forEach items="${pages}" var="page">
 		<input type="submit" name="pageNumber" form="page-form" id="pageNumber" value="${page}">

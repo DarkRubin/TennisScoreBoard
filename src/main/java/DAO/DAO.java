@@ -39,7 +39,7 @@ public class DAO {
 
     public List<FinishedMatch> findMatches() {
         try (Session session = SESSION_FACTORY.openSession()) {
-            return session.createSelectionQuery("from FinishedMatch", FinishedMatch.class).getResultList();
+            return session.createSelectionQuery("from FinishedMatch order by id DESC ", FinishedMatch.class).getResultList();
         }
     }
 

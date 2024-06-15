@@ -1,9 +1,27 @@
 
 body {
     background-image: url("static/background.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     font: 40px/1.5 Impact;
     padding: 20px;
 
+}
+
+img {
+    width: 100%;
+    height: 100%;}
+
+.head {
+    text-align: center;
+    align-self: center;
+}
+
+.winner-show {
+    text-align: center;
+    align-self: center;
 }
 
 h1, h2, p {
@@ -22,13 +40,23 @@ form {
     scale: inherit;
     border: 2px solid darkblue;
     background-color: blue;
-    min-width: 80px;
 }
 
 .matches {
     scale: inherit;
-    background-color: darkcyan;
+    background-color: blue;
     border: 2px solid #0d55b8;
+}
+
+.search-form, .pages-form {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.players-form {
+    justify-content: center;
+    align-self: center;
 }
 
 table {
@@ -49,8 +77,15 @@ td {
 }
 
 .block {
-    background-color: aqua;
+    justify-content: center;
+    align-self: center;
+    background-color: blue;
     border: 2px solid darkblue;
+}
+
+.labels {
+    text-align: center;
+    display: flex;
 }
 
 .page-button {
@@ -65,7 +100,6 @@ td {
 
 
 .button-wrapper{
-    background-image: url(static/rocket2.jpg);
     align-self: center;
     height: 50px;
     width: 50px;
