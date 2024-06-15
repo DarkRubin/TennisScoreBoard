@@ -3,17 +3,13 @@
 <%@ page import="match.MatchScore" %>
 <%@ page import="match.PlayerScore" %>
 <html>
-
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <title>Match Scoreboard</title>
+</head>
 <body>
-<div class="head">
-  <section>
-	<article>
-	  <a href="${pageContext.request.contextPath}/MainPage.jsp">Tennis Scoreboard</a>
-	  <a href="${pageContext.request.contextPath}/FinishedMatchesView.jsp">Matches</a>
-	  <a href="${pageContext.request.contextPath}/NewMatchView.jsp">New Match</a>
-	</article>
-  </section>
-</div>
+
+<jsp:include page="/Header.jsp"/>
 
 <%
   MatchScore matchScore = (MatchScore) request.getAttribute("matchScore");
@@ -85,9 +81,4 @@
   </section>
 </div>
 </body>
-
-<head>
-  <link rel="stylesheet" href="styles.css">
-  <title>Match Scoreboard</title>
-</head>
 </html>

@@ -6,15 +6,7 @@
   <title>Matches</title>
 </head>
 <body>
-<div class="head">
-  <section>
-	<article>
-	  <a href="<c:url value="/MainPage.jsp"/>">Tennis Scoreboard</a>
-	  <a href="<c:url value="/FinishedMatchesView.jsp"/>">Matches</a>
-	  <a href="<c:url value="/NewMatchView.jsp"/>">New Match</a>
-	</article>
-  </section>
-</div>
+<jsp:include page="Header.jsp"/>
 
 <%
   String url = request.getContextPath() + "/matches-controller";

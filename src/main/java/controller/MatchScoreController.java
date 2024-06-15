@@ -18,6 +18,7 @@ public class MatchScoreController extends HttpServlet {
     private final OngoingMatchesService service = new OngoingMatchesService();
     private final MatchScoreCalculationService calculationService = new MatchScoreCalculationService();
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UUID uuid = UUID.fromString(request.getParameter("uuid"));
         String idParam = request.getParameter("id");

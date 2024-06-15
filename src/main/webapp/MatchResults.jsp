@@ -8,22 +8,12 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="head">
-  <section>
-    <article>
-      <a href="${pageContext.request.contextPath}/MainPage.jsp">Tennis Scoreboard</a>
-      <a href="${pageContext.request.contextPath}/FinishedMatchesView.jsp">Matches</a>
-      <a href="${pageContext.request.contextPath}/NewMatchView.jsp">New Match</a>
-    </article>
-  </section>
-</div>
-
+<jsp:include page="/Header.jsp" flush="true"/>
   <%
   MatchScore matchScore = (MatchScore) request.getAttribute("matchScore");
   PlayerScore firstPlayerScore = matchScore.getFirstPlayerScore();
   PlayerScore secondPlayerScore = matchScore.getSecondPlayerScore();
   %>
-
 <div class="board">
     <table>
       <thead>

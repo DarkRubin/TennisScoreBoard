@@ -7,16 +7,7 @@
 	<title>Tennis Scoreboard</title>
   </head>
   <body>
-	<div class="head">
-	  <section>
-		<article>
-		  <a class="matches-link" href="${pageContext.request.contextPath}/FinishedMatchesView.jsp">Matches</a>
-		  <a class="main-link" href="${pageContext.request.contextPath}/MainPage.jsp">Tennis Scoreboard</a>
-		  <a class="new-match-link" href="${pageContext.request.contextPath}/NewMatchView.jsp">New Match</a>
-		</article>
-	  </section>
-	</div>
-
+	<jsp:include page="Header.jsp"/>
 	<div class="board">
 	  <section>
 		<table>
