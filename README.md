@@ -1,5 +1,5 @@
 # Tennis Scoreboard
-## Screenshoots: 
+## Screenshots: 
 ![image](https://github.com/DarkRubin/TennisScoreBoard/assets/162484847/59e9d344-8715-4f44-b722-233c94993265)
 ![image](https://github.com/DarkRubin/TennisScoreBoard/assets/162484847/23663ae7-1f26-494a-aed4-bb7c26b4a942)
 ![image](https://github.com/DarkRubin/TennisScoreBoard/assets/162484847/20335e5b-f770-4ec1-9018-834f0c6884d7)
