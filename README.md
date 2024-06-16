@@ -8,6 +8,6 @@
 ![image](https://github.com/DarkRubin/TennisScoreBoard/assets/162484847/7561f11f-545e-4949-97ce-190e23ebcaac)
 
 
-## Features: Start matches, Change score, Wiew finished matches, Search matches by player
+## Features: Start matches, Change score, View finished matches, Search matches by player
 ## Stack: JakartaEE, JSP, Hibernate, H2, Maven, TomcatEE, Junit5
-## Project from [cource](https://zhukovsd.github.io/java-backend-learning-course/Projects/TennisScoreboard/)
+## Project from [course](https://zhukovsd.github.io/java-backend-learning-course/Projects/TennisScoreboard/)
